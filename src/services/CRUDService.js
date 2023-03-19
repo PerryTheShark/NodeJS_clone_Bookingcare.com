@@ -8,7 +8,7 @@ let createNewUser = async (data) => {
     try {
       let hashPasswordFromBycript = await hashUserPassword(data.password);
       await db.User.create({
-        email: data.email[1],
+        email: data.email,
         password: hashPasswordFromBycript,
         firstName: data.firstName,
         lastName: data.lastName,
@@ -35,6 +35,20 @@ let hashUserPassword = (password) => {
   });
 };
 
+let getAllUser = () => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let users = db.User.findAll({
+        raw: true,
+      });
+      resolve(users);
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   createNewUser: createNewUser,
+  getAllUser: getAllUser,
 };
