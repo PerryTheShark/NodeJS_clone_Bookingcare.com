@@ -15,6 +15,26 @@
         border: 1px solid black;
         border-collapse: collapse;
     }
+
+    .btn-edit {
+        background: orange;
+        outline: none;
+        border: none;
+        height: 25px;
+        width: 60px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .btn-delete {
+        background: rgb(255, 60, 0);
+        outline: none;
+        border: none;
+        height: 25px;
+        width: 60px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
 </style>
 
 <body>
@@ -26,6 +46,7 @@
                 <th>First name</th>
                 <th>Last name</th>
                 <th>Last name</th>
+                <th>Actions</th>
             </tr>
 
             <% for(var i=0; i < dataTable.length; i++) { %>
@@ -41,6 +62,14 @@
                     </td>
                     <td>
                         <%= dataTable[i].address %>
+                    </td>
+                    <td>
+                        <a href="/edit-crud?id=<%= dataTable[i].id %>" class="btn-edit" type="button">
+                            Edit
+                        </a>
+                        <a class="btn-delete" type="button">
+                            Delete
+                        </a>
                     </td>
                 </tr>
                 <% } %>
