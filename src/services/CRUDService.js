@@ -29,7 +29,7 @@ let hashUserPassword = (password) => {
     try {
       let hashPassword = await bcrypt.hashSync(password, salt);
       resolve(hashPassword);
-    } catch (error) {
+    } catch (e) {
       reject(e);
     }
   });
@@ -50,7 +50,6 @@ let getAllUser = () => {
 
 let getUserInfoById = (userId) => {
   return new Promise(async (resolve, reject) => {
-    console.log(userId);
     try {
       let user = await db.User.findOne({
         where: { id: userId },
@@ -68,8 +67,52 @@ let getUserInfoById = (userId) => {
   });
 };
 
+// This below function edit user by finding user with user Id the convert data from (data) then save user
+let updateUserData = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: data.id },
+      });
+      if (user) {
+        user.firstName = data.firstName;
+        user.lastName = data.lastName;
+        user.address = data.address;
+
+        await user.save();
+
+        let allUsers = await db.User.findAll();
+        resolve(allUsers);
+      } else {
+        resolve();
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+let deleteUserById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let user = await db.User.findOne({
+        where: { id: id },
+      });
+      if (user) {
+        await user.destroy();
+      }
+
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   createNewUser: createNewUser,
   getAllUser: getAllUser,
   getUserInfoById: getUserInfoById,
+  updateUserData: updateUserData,
+  deleteUserById: deleteUserById,
 };
