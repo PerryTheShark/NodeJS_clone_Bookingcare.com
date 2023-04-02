@@ -25,7 +25,7 @@ let handleLogin = async (req, res) => {
 };
 
 let handleGetAllUsers = async (req, res) => {
-  let id = req.body.id; //All or id
+  let id = req.query.id; //All or id
 
   //validate server side
   if (!id) {
