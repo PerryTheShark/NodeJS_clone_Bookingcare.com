@@ -6,10 +6,10 @@ const salt = bcrypt.genSaltSync(10);
 let createNewUser = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let hashPasswordFromBycript = await hashUserPassword(data.password);
+      let hashPasswordFromBcrypt = await hashUserPassword(data.password);
       await db.User.create({
         email: data.email,
-        password: hashPasswordFromBycript,
+        password: hashPasswordFromBcrypt,
         firstName: data.firstName,
         lastName: data.lastName,
         address: data.address,

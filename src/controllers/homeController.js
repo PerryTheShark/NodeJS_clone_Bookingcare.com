@@ -22,7 +22,6 @@ let getCRUD = (req, res) => {
 
 let postCRUD = async (req, res) => {
   let message = await CRUDService.createNewUser(req.body);
-  console.log("hi", req.body);
   return res.send("post crud for server");
 };
 
@@ -34,7 +33,6 @@ let displayGetCRUD = async (req, res) => {
 };
 
 let getEditCRUD = async (req, res) => {
-  console.log(req.query.id);
   let userId = req.query.id;
   if (userId) {
     let userData = await CRUDService.getUserInfoById(userId);
