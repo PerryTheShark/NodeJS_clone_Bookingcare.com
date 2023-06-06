@@ -18,19 +18,42 @@ let sendSimpleEmail = async (dataSend) => {
     to: dataSend.receiverEmail, // list of receivers
     subject: "THONG TIN GUI EMAIL", // Subject line
     text: "Hello world?", // plain text body
-    html: `
+    html: getBodyHTMLEmail(dataSend),
+  });
+};
+
+let getBodyHTMLEmail = (dataSend) => {
+  let result = "";
+  if (dataSend.language === "vi") {
+    result = `
     <h3> Xin chao ${dataSend.patientName} </h3>
-    <p>You receiver this email because Bin sent it to you! </p>
+    <p>Bạn nhận được email này bởi vì Bin thích thế! </p>
     <p>Thong tin dat lich test phong kham </p>
+    <div><b> Thời gian: ${dataSend.time} </b> </div>
+    <div><b> Bác sĩ: ${dataSend.doctorName} </b> </div>
+    <p> Neu thong tin chinh xac vui long click duong link ben duoi </p> 
+    <div>
+    <a href=${dataSend.redirectLink} target="_blank">Nhấn vào đây!</a>
+    </div>
+    <div> Thank you very much! </div>
+    `;
+  }
+  if (dataSend.language === "en") {
+    result = `
+    <h3> Dear ${dataSend.patientName} </h3>
+    <p>You receiver this email because Bin sent it to you! </p>
+    <p>Information booking: </p>
     <div><b> Time: ${dataSend.time} </b> </div>
     <div><b> Doctor: ${dataSend.doctorName} </b> </div>
-    <p> Neu thong tin chinh xac vui long click duong link ben duoi </p> 
+    <p> If the information above is correct click the link below to confirm! </p> 
     <div>
     <a href=${dataSend.redirectLink} target="_blank">Click here!</a>
     </div>
     <div> Thank you very much! </div>
-    `, // html body
-  });
+    `;
+  }
+
+  return result;
 };
 
 module.exports = {
