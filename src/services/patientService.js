@@ -16,7 +16,9 @@ let postBookAppointment = (data) => {
         !data.doctorId ||
         !data.timeType ||
         !data.date ||
-        !data.fullName
+        !data.fullName ||
+        !data.selectedGender ||
+        !data.address
       ) {
         resolve({
           errCode: 1,
@@ -33,12 +35,15 @@ let postBookAppointment = (data) => {
           redirectLink: buildUrlEmail(token, data.doctorId),
         });
 
-        //upsert
+        //upsert patient
         let user = await db.User.findOrCreate({
           where: { email: data.email },
           defaults: {
             email: data.email,
             roleId: "R3",
+            gender: data.selectedGender,
+            address: data.address,
+            firstName: data.fullName,
           },
         });
 
