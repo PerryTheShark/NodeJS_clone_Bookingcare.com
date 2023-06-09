@@ -43,6 +43,10 @@ let initWebRoutes = (app) => {
     doctorController.getExtraInforDoctorById
   );
   router.get(
+    "/api/get-profile-doctor-by-id",
+    doctorController.getProfileDoctorById
+  );
+  router.get(
     "/api/get-list-patient-for-doctor",
     doctorController.getListPatientForDoctor
   );
